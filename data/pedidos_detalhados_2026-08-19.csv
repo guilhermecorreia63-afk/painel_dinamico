@@ -1,0 +1,104 @@
+﻿Pedido,Etapa,Data Faturamento,Data Alteração,Departamento,Transportadora,Historico Etapas,Valor Total,Peso Bruto (kg)
+16473,Faturado,19/08/2026,19/08/2026,Comercial,Retirada Estoque,[],56.4,0.57
+16472,Em Processo,-,19/08/2026,Comercial,-,[],2401.37,27.4
+16471,Separar Estoque,-,19/08/2026,Comercial,PAC,[],172.37,2.295
+16470,Faturado,19/08/2026,19/08/2026,Comercial,Retirada Estoque,[],29.95,0.255
+16469,Separar Estoque,-,19/08/2026,Comercial,Souza,[],337.98,4.72
+16468,Faturado,19/08/2026,19/08/2026,Ecommerce,J&T,[],179.8,0.994
+16467,Faturado,19/08/2026,19/08/2026,Ecommerce,Sedex,[],75.26,0.475
+16466,Faturado,19/08/2026,19/08/2026,Ecommerce,J&T,[],37.78,0.475
+16465,Faturado,19/08/2026,19/08/2026,Ecommerce,Impresso,[],31.91,0.475
+16464,Faturado,19/08/2026,19/08/2026,Ecommerce,J&T,[],39.68,0.475
+16463,Faturado,19/08/2026,19/08/2026,Ecommerce,Impresso,[],45.98,0.28
+16462,Em Processo,-,19/08/2026,Comercial,-,[],1847.64,24.34
+16461,Faturado,19/08/2026,19/08/2026,Ecommerce,J&T,[],95.6,0.51
+16460,Faturado,19/08/2026,19/08/2026,Ecommerce,Impresso,[],22.7,0.33
+16459,Faturado,19/08/2026,19/08/2026,Ecommerce,Impresso,[],74.65,0.68
+16458,Faturado,19/08/2026,19/08/2026,Ecommerce,J&T,[],113.7,0.895
+16457,Faturado,19/08/2026,19/08/2026,Comercial,Retirada Estoque,[],19.45,0.275
+16456,Faturado,18/08/2026,18/08/2026,Ecommerce,J&T,[],51.66,0.315
+16455,Separar Estoque,-,19/08/2026,Comercial,Souza,[],2206.07,29.01
+16454,Faturado,18/08/2026,18/08/2026,Comercial,Retirada Estoque,[],31.12,0.255
+16453,Faturado,18/08/2026,18/08/2026,Comercial,-,[],702.88,13.815
+16452,Faturado,19/08/2026,19/08/2026,Comercial,PAC,[],3226.06,40.98
+16451,Faturado,18/08/2026,18/08/2026,Comercial,Retirada Estoque,[],31.12,0.275
+16450,Separar Estoque,-,18/08/2026,Ecommerce,PAC,[],35.9,0.235
+16449,Em Processo,-,18/08/2026,Comercial,-,[],163.7,2.26
+16448,10,-,18/08/2026,Comercial,PAC,[],914.15,9.69
+16447,10,-,18/08/2026,Comercial,J&T,[],1481.48,15.81
+16446,Faturado,18/08/2026,18/08/2026,Ecommerce,J&T,[],63.16,0.14
+16445,Faturado,18/08/2026,18/08/2026,Ecommerce,J&T,[],77.05,0.68
+16442,Faturado,18/08/2026,18/08/2026,Ecommerce,PAC,[],23.56,0.165
+16441,Faturado,18/08/2026,18/08/2026,Comercial,Retirada Estoque,[],1317.72,16.345
+16440,Faturado,18/08/2026,18/08/2026,Comercial,PAC,[],1285.92,12.83
+16437,Faturado,18/08/2026,18/08/2026,Comercial,Retirada Estoque,[],13.2,0.125
+16436,Faturado,18/08/2026,18/08/2026,Comercial,-,[],2857.6,17.26
+16434,Faturado,18/08/2026,18/08/2026,Ecommerce,Sedex,[],85.4,0.497
+16433,Faturado,18/08/2026,18/08/2026,Ecommerce,J&T,[],146.76,1.19
+16432,Faturado,18/08/2026,18/08/2026,Ecommerce,Impresso,[],85.4,0.497
+16431,Faturado,18/08/2026,18/08/2026,Ecommerce,Sedex,[],85.62,0.755
+16430,Faturado,18/08/2026,18/08/2026,Ecommerce,Impresso,[],21.65,0.165
+16429,Faturado,18/08/2026,18/08/2026,Ecommerce,Sedex,[],89.9,0.497
+16428,Faturado,18/08/2026,18/08/2026,Ecommerce,J&T,[],122.8,0.752
+16427,Faturado,18/08/2026,18/08/2026,Comercial,Retirada Estoque,[],48.9,0.335
+16425,Faturado,17/08/2026,17/08/2026,Ecommerce,J&T,[],85.19,1.03
+16424,Faturado,17/08/2026,17/08/2026,Ecommerce,J&T,[],84.63,0.84
+16423,Faturado,17/08/2026,17/08/2026,Comercial,Retirada Estoque,[],56.64,0.73
+16422,Faturado,17/08/2026,17/08/2026,Comercial,-,[],702.88,13.815
+16421,Faturado,17/08/2026,17/08/2026,Ecommerce,Total,[],83.78,0.42
+16420,Faturado,17/08/2026,17/08/2026,Comercial,Retirada Estoque,[],65.8,0.77
+16419,Faturado,17/08/2026,17/08/2026,Ecommerce,Impresso,[],137.65,1.165
+16418,Faturado,17/08/2026,17/08/2026,Ecommerce,Impresso,[],71.35,0.68
+16417,Faturado,17/08/2026,17/08/2026,Comercial,Retirada Estoque,[],25.52,0.415
+16416,Em Processo,-,17/08/2026,Comercial,J&T,[],838.43,6.3
+16415,Em Processo,-,18/08/2026,Comercial,-,[],1453.9,23.475
+16414,Faturado,17/08/2026,17/08/2026,Ecommerce,J&T,[],119.8,0.43
+16413,Faturado,17/08/2026,17/08/2026,Ecommerce,J&T,[],104.56,0.885
+16412,Faturado,17/08/2026,17/08/2026,Comercial,PAC,[],1052.67,14.84
+16411,Faturado,17/08/2026,17/08/2026,Ecommerce,Impresso,[],71.35,0.68
+16410,Faturado,17/08/2026,17/08/2026,Comercial,Souza,[],1760.8,21.755
+16409,Faturado,17/08/2026,17/08/2026,Ecommerce,J&T,[],110.35,0.99
+16408,Faturado,17/08/2026,17/08/2026,Ecommerce,J&T,[],57.37,0.54
+16407,Faturado,17/08/2026,17/08/2026,Ecommerce,J&T,[],86.64,1.17
+16406,Faturado,17/08/2026,17/08/2026,Ecommerce,J&T,[],105.7,0.41
+16405,Faturado,17/08/2026,17/08/2026,Ecommerce,Impresso,[],88.65,0.755
+16404,Faturado,17/08/2026,17/08/2026,Ecommerce,Sedex,[],78.06,0.63
+16403,Faturado,17/08/2026,17/08/2026,Ecommerce,Impresso,[],89.9,0.497
+16402,Faturado,17/08/2026,17/08/2026,Ecommerce,Sedex,[],47.31,0.205
+16401,Faturado,17/08/2026,17/08/2026,Ecommerce,J&T,[],80.84,0.68
+16400,Faturado,17/08/2026,17/08/2026,Ecommerce,Impresso,[],62.8,0.565
+16399,Faturado,17/08/2026,17/08/2026,Ecommerce,J&T,[],131.7,1.105
+16398,Faturado,17/08/2026,17/08/2026,Ecommerce,Impresso,[],82.66,0.41
+16397,Faturado,17/08/2026,17/08/2026,Ecommerce,Sedex,[],36.48,0.215
+16396,Faturado,17/08/2026,17/08/2026,Ecommerce,J&T,[],77.51,0.68
+16395,Faturado,17/08/2026,17/08/2026,Ecommerce,J&T,[],95.66,0.985
+16394,Faturado,17/08/2026,17/08/2026,Ecommerce,Impresso,[],71.35,0.68
+16393,Faturado,17/08/2026,17/08/2026,Ecommerce,Sedex,[],76.26,0.68
+16392,Faturado,17/08/2026,17/08/2026,Ecommerce,Impresso,[],43.65,0.305
+16391,Faturado,17/08/2026,17/08/2026,Ecommerce,J&T,[],58.47,0.255
+16390,Faturado,17/08/2026,17/08/2026,Ecommerce,J&T,[],125.21,1.295
+16389,Faturado,17/08/2026,17/08/2026,Ecommerce,Sedex,[],47.31,0.205
+16388,Faturado,17/08/2026,17/08/2026,Ecommerce,Impresso,[],52.07,0.795
+16387,Faturado,17/08/2026,17/08/2026,Ecommerce,J&T,[],274.5,1.0
+16386,Faturado,17/08/2026,17/08/2026,Ecommerce,Impresso,[],89.9,0.497
+16385,Faturado,17/08/2026,17/08/2026,Ecommerce,J&T,[],123.7,1.045
+16384,Faturado,17/08/2026,17/08/2026,Comercial,PAC,[],12279.5,528.9
+16383,Faturado,17/08/2026,17/08/2026,Ecommerce,J&T,[],51.11,0.205
+16382,Faturado,17/08/2026,17/08/2026,Comercial,PAC,[],2171.49,28.124
+16381,Faturado,17/08/2026,17/08/2026,Ecommerce,J&T,[],82.2,0.76
+16380,Faturado,17/08/2026,17/08/2026,Comercial,Retirada Estoque,[],2068.61,29.175
+16379,Faturado,17/08/2026,17/08/2026,Ecommerce,Impresso,[],71.35,0.68
+16378,Faturado,17/08/2026,17/08/2026,Ecommerce,J&T,[],78.0,0.68
+16377,Faturado,14/08/2026,14/08/2026,Ecommerce,Sedex,[],52.36,0.255
+16376,Faturado,14/08/2026,14/08/2026,Ecommerce,J&T,[],109.8,0.75
+16375,Faturado,14/08/2026,14/08/2026,Ecommerce,Impresso,[],47.65,0.205
+16374,Em Processo,-,19/08/2026,Comercial,-,[],623.82,7.04
+16373,Faturado,17/08/2026,17/08/2026,Ecommerce,Souza,[],38.61,0.165
+16371,Faturado,14/08/2026,14/08/2026,Comercial,Retirada Estoque,[],374.9,2.365
+16370,Faturado,17/08/2026,17/08/2026,Comercial,Souza,[],1193.79,15.145
+16369,Faturado,14/08/2026,14/08/2026,Ecommerce,J&T,[],423.7,2.29
+16366,Faturado,14/08/2026,14/08/2026,Ecommerce,Impresso,[],89.9,0.497
+16365,Faturado,14/08/2026,14/08/2026,Ecommerce,Sedex,[],162.79,0.945
+16364,Faturado,14/08/2026,14/08/2026,Ecommerce,J&T,[],370.86,2.695
+16363,Faturado,17/08/2026,17/08/2026,Comercial,Souza,[],256.53,4.14
+16353,Faturado,17/08/2026,17/08/2026,Comercial,Souza,[],1681.32,22.79

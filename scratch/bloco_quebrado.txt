@@ -1,0 +1,81 @@
+            # Entrada de separação é baseada na inclusão (lançamento) do pedido
+            ts_separacao = parse_and_adjust_datetime(data_inc, hora_inc)
+
+            # REGRA 1: Pedidos em Separar Estoque
+            if etapa_atual == 'Separar Estoque':
+                if pedido_id not in df_historico['Pedido'].values:
+                    nova_linha = pd.DataFrame([{
+                        "Pedido": pedido_id,
+                        "DataEntradaSeparacao": ts_separacao,
+                        "DataEntradaFaturar": np.nan,
+                        "DataFaturamento": np.nan
+                    }])
+                    df_historico = pd.concat([df_historico, nova_linha], ignore_index=True)
+                    houve_alteracao = True
+                else:
+                    idx = df_historico.index[df_historico['Pedido'] == pedido_id].tolist()
+                    if idx and pd.isna(df_historico.loc[idx[0], 'DataEntradaSeparacao']):
+                        df_historico.loc[idx[0], 'DataEntradaSeparacao'] = ts_separacao
+                                houve_alteracao = True
+
+            # REGRA 2: Pedidos em Faturar
+            elif etapa_atual == 'Faturar':
+                ts_faturar = parse_and_adjust_datetime(data_alt, hora_alt)
+                if pedido_id not in df_historico['Pedido'].values:
+                    nova_linha = pd.DataFrame([{
+                        "Pedido": pedido_id,
+                        "DataEntradaSeparacao": ts_separacao,
+                        "DataEntradaFaturar": ts_faturar,
+                        "DataFaturamento": np.nan
+                    }])
+                    df_historico = pd.concat([df_historico, nova_linha], ignore_index=True)
+                    houve_alteracao = True
+                else:
+                    idx = df_historico.index[df_historico['Pedido'] == pedido_id].tolist()
+                    if idx:
+                        if pd.isna(df_historico.loc[idx[0], 'DataEntradaSeparacao']):
+                            df_historico.loc[idx[0], 'DataEntradaSeparacao'] = ts_separacao
+                            houve_alteracao = True
+                        if pd.isna(df_historico.loc[idx[0], 'DataEntradaFaturar']):
+                            df_historico.loc[idx[0], 'DataEntradaFaturar'] = ts_faturar
+                            houve_alteracao = True
+
+            # REGRA 3: Pedidos Faturados
+            elif etapa_atual == 'Faturado':
+                        data_fat = payload.get('data_faturamento')
+                        hora_fat = payload.get('hora_faturamento', '00:00:00')
+                        if data_fat:
+                            ts_faturamento = parse_and_adjust_datetime(data_fat, hora_fat)
+                            if pd.isna(df_historico.loc[idx[0], 'DataFaturamento']):
+                                df_historico.loc[idx[0], 'DataFaturamento'] = ts_faturamento
+                            houve_alteracao = True
+                    if pedido_id in df_historico['Pedido'].values:
+                        idx = df_historico.index[df_historico['Pedido'] == pedido_id].tolist()
+                        if idx:
+                            if pd.isna(df_historico.loc[idx[0], 'DataEntradaSeparacao']):
+                                df_historico.loc[idx[0], 'DataEntradaSeparacao'] = ts_separacao
+                                houve_alteracao = True
+                            if pd.isna(df_historico.loc[idx[0], 'DataFaturamento']):
+                                df_historico.loc[idx[0], 'DataFaturamento'] = ts_faturamento
+                                houve_alteracao = True
+                    else:
+                        nova_linha = pd.DataFrame([{
+                            "Pedido": pedido_id,
+                            "DataEntradaSeparacao": ts_separacao,
+                            "DataEntradaFaturar": np.nan,
+                            "DataFaturamento": ts_faturamento
+                        }])
+                        df_historico = pd.concat([df_historico, nova_linha], ignore_index=True)
+                                houve_alteracao = True
+
+        except Exception:
+            continue
+
+    # Salva no arquivo CSV se houver alterações
+    if houve_alteracao:
+        try:
+            df_historico = df_historico.groupby('Pedido', as_index=False).first()
+            df_historico['Pedido'] = df_historico['Pedido'].astype(int)
+            df_historico.to_csv(historico_pedidos_file, index=False, encoding='utf-8-sig')
+            st.sidebar.success("✅ Histórico atualizado!")
+        except PermissionError:
