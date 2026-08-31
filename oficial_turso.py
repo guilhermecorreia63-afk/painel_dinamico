@@ -6,11 +6,32 @@ import tomllib
 from datetime import datetime, timedelta
 import numpy as np
 import sqlite3
+import math
+from zoneinfo import ZoneInfo
 from streamlit_autorefresh import st_autorefresh
+
+BRASILIA_TZ = ZoneInfo("America/Sao_Paulo")
+
+def agora_brasilia():
+    """Retorna o datetime atual no fuso de Brasília (funciona tanto localmente quanto no Streamlit Cloud em UTC)."""
+    return datetime.now(BRASILIA_TZ).replace(tzinfo=None)
+
+def sanitizar_para_banco(valor):
+    """Converte NaN/Infinity/None em None (SQL NULL) antes de gravar no Turso."""
+    if valor is None:
+        return None
+    if isinstance(valor, float) and (math.isnan(valor) or math.isinf(valor)):
+        return None
+    try:
+        if pd.isna(valor):
+            return None
+    except (TypeError, ValueError):
+        pass
+    return valor
 
 # --- INICIALIZAÇÃO DO ESTADO DA SESSÃO ---
 if 'ultima_atualizacao' not in st.session_state:
-    st.session_state.ultima_atualizacao = datetime.now()
+    st.session_state.ultima_atualizacao = agora_brasilia()
 
 if 'pedidos_antigos' not in st.session_state:
     st.session_state.pedidos_antigos = pd.DataFrame()
@@ -426,7 +447,7 @@ def verificar_e_notificar_mudancas():
     
     df_historico = df_historico.astype({"DataEntradaSeparacao": object, "DataEntradaFaturar": object, "DataFaturamento": object})
 
-    hoje_omie = datetime.now().strftime('%d/%m/%Y')  # Formato Omie: DD/MM/YYYY
+    hoje_omie = agora_brasilia().strftime('%d/%m/%Y')  # Formato Omie: DD/MM/YYYY
     statements = []
     houve_alteracao = False
 
@@ -449,7 +470,7 @@ def verificar_e_notificar_mudancas():
                 if pedido_id not in df_historico['Pedido'].values:
                     statements.append((
                         "INSERT INTO historico_pedidos (Pedido, DataEntradaSeparacao, DataEntradaFaturar, DataFaturamento) VALUES (?, ?, NULL, NULL)",
-                        (pedido_id, ts_separacao)
+                        (pedido_id, sanitizar_para_banco(ts_separacao))
                     ))
                     # Sincroniza localmente
                     nova_linha = pd.DataFrame([{
@@ -463,7 +484,7 @@ def verificar_e_notificar_mudancas():
                     if idx and pd.isna(df_historico.loc[idx[0], 'DataEntradaSeparacao']):
                         statements.append((
                             "UPDATE historico_pedidos SET DataEntradaSeparacao = ? WHERE Pedido = ?",
-                            (ts_separacao, pedido_id)
+                            (sanitizar_para_banco(ts_separacao), pedido_id)
                         ))
                         df_historico.loc[idx[0], 'DataEntradaSeparacao'] = ts_separacao
                         houve_alteracao = True
@@ -474,7 +495,7 @@ def verificar_e_notificar_mudancas():
                 if pedido_id not in df_historico['Pedido'].values:
                     statements.append((
                         "INSERT INTO historico_pedidos (Pedido, DataEntradaSeparacao, DataEntradaFaturar, DataFaturamento) VALUES (?, ?, ?, NULL)",
-                        (pedido_id, ts_separacao, ts_faturar)
+                        (pedido_id, sanitizar_para_banco(ts_separacao), sanitizar_para_banco(ts_faturar))
                     ))
                     nova_linha = pd.DataFrame([{
                         "Pedido": pedido_id, "DataEntradaSeparacao": ts_separacao,
@@ -495,7 +516,7 @@ def verificar_e_notificar_mudancas():
                         if pd.isna(df_historico.loc[idx[0], 'DataEntradaFaturar']):
                             statements.append((
                                 "UPDATE historico_pedidos SET DataEntradaFaturar = ? WHERE Pedido = ?",
-                                (ts_faturar, pedido_id)
+                                (sanitizar_para_banco(ts_faturar), pedido_id)
                             ))
                             df_historico.loc[idx[0], 'DataEntradaFaturar'] = ts_faturar
                             houve_alteracao = True
@@ -523,28 +544,28 @@ def verificar_e_notificar_mudancas():
                             if pd.isna(df_historico.loc[idx[0], 'DataEntradaSeparacao']):
                                 statements.append((
                                     "UPDATE historico_pedidos SET DataEntradaSeparacao = ? WHERE Pedido = ?",
-                                    (ts_separacao, pedido_id)
+                                    (sanitizar_para_banco(ts_separacao), pedido_id)
                                 ))
                                 df_historico.loc[idx[0], 'DataEntradaSeparacao'] = ts_separacao
                                 houve_alteracao = True
                             if pd.isna(df_historico.loc[idx[0], 'DataEntradaFaturar']):
                                 statements.append((
                                     "UPDATE historico_pedidos SET DataEntradaFaturar = ? WHERE Pedido = ?",
-                                    (ts_faturar, pedido_id)
+                                    (sanitizar_para_banco(ts_faturar), pedido_id)
                                 ))
                                 df_historico.loc[idx[0], 'DataEntradaFaturar'] = ts_faturar
                                 houve_alteracao = True
                             if pd.isna(df_historico.loc[idx[0], 'DataFaturamento']):
                                 statements.append((
                                     "UPDATE historico_pedidos SET DataFaturamento = ? WHERE Pedido = ?",
-                                    (ts_faturamento, pedido_id)
+                                    (sanitizar_para_banco(ts_faturamento), pedido_id)
                                 ))
                                 df_historico.loc[idx[0], 'DataFaturamento'] = ts_faturamento
                                 houve_alteracao = True
                     else:
                         statements.append((
                             "INSERT INTO historico_pedidos (Pedido, DataEntradaSeparacao, DataEntradaFaturar, DataFaturamento) VALUES (?, ?, ?, ?)",
-                            (pedido_id, ts_separacao, ts_faturar, ts_faturamento)
+                            (pedido_id, sanitizar_para_banco(ts_separacao), sanitizar_para_banco(ts_faturar), sanitizar_para_banco(ts_faturamento))
                         ))
                         nova_linha = pd.DataFrame([{
                             "Pedido": pedido_id, "DataEntradaSeparacao": ts_separacao,
@@ -584,13 +605,13 @@ def verificar_e_notificar_mudancas():
     st.session_state.pedidos_antigos = df_atual.copy()
 
 # --- LÓGICA DE ATUALIZAÇÃO AUTOMÁTICA E CONTROLE DA SIDEBAR ---
-agora = datetime.now()
+agora = agora_brasilia()
 segundos_desde_ultima = (agora - st.session_state.ultima_atualizacao).total_seconds()
 tempo_restante = max(0, int(INTERVALO_SEGUNDOS - segundos_desde_ultima))
 
 if tempo_restante <= 0:
     st.cache_data.clear()
-    st.session_state.ultima_atualizacao = datetime.now()
+    st.session_state.ultima_atualizacao = agora_brasilia()
     st.session_state.pedidos_antigos = st.session_state.get('df_pedidos_cache', pd.DataFrame()).copy()
     st.rerun()
 
