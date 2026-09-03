@@ -206,7 +206,7 @@ inicializar_banco()
 def buscar_pedidos():
     secrets = carregar_secrets()
     url = "https://app.omie.com.br/api/v1/produtos/pedido/"
-    data_alvo = (datetime.now() - timedelta(days=5)).strftime("%d/%m/%Y")
+    data_alvo = (agora_brasilia() - timedelta(days=5)).strftime("%d/%m/%Y")
     
     pagina_atual = 1
     total_de_paginas = 1
@@ -323,23 +323,23 @@ def ajustar_para_horario_comercial(dt):
 
 def parse_and_adjust_datetime(data_str, hora_str):
     if not data_str or data_str == '-' or not hora_str or hora_str == '-':
-        dt = datetime.now()
+        dt = agora_brasilia()
     else:
         try:
             dt = datetime.strptime(f"{data_str} {hora_str}", "%d/%m/%Y %H:%M:%S")
         except Exception:
-            dt = datetime.now()
+            dt = agora_brasilia()
     dt_adjusted = ajustar_para_horario_comercial(dt)
     return dt_adjusted.strftime("%Y-%m-%d %H:%M:%S")
 
 def parse_datetime_real(data_str, hora_str):
     if not data_str or data_str == '-' or not hora_str or hora_str == '-':
-        dt = datetime.now()
+        dt = agora_brasilia()
     else:
         try:
             dt = datetime.strptime(f"{data_str} {hora_str}", "%d/%m/%Y %H:%M:%S")
         except Exception:
-            dt = datetime.now()
+            dt = agora_brasilia()
     return dt.strftime("%Y-%m-%d %H:%M:%S")
 
 
@@ -585,7 +585,7 @@ def verificar_e_notificar_mudancas():
             st.sidebar.error(f"Erro de transação no banco: {e}")
 
     # Filtra o histórico para o dia de hoje de forma a exibir médias operacionais correspondentes apenas a hoje
-    hoje = datetime.now().date()
+    hoje = agora_brasilia().date()
     df_historico_hoje = pd.DataFrame()
     if not df_historico.empty and 'DataFaturamento' in df_historico.columns:
         try:
@@ -786,7 +786,7 @@ with aba_painel:
         
         st.subheader("🕒 Painel de Coletas (Tempo Real)")
         with st.container(border=True):
-            hora_atual = datetime.now().time()
+            hora_atual = agora_brasilia().time()
             
             t_800 = datetime.strptime("08:00", "%H:%M").time()
             t_1030 = datetime.strptime("10:30", "%H:%M").time()

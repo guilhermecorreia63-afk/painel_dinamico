@@ -4,13 +4,20 @@ import pandas as pd
 from pathlib import Path
 import tomllib
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 from historico import renderizar_aba_historico
 from streamlit_autorefresh import st_autorefresh
 import numpy as np
 
+BRASILIA_TZ = ZoneInfo("America/Sao_Paulo")
+
+def agora_brasilia():
+    """Retorna o datetime atual no fuso de Brasília."""
+    return datetime.now(BRASILIA_TZ).replace(tzinfo=None)
+
 # --- INICIALIZAÇÃO DO ESTADO DA SESSÃO ---
 if 'ultima_atualizacao' not in st.session_state:
-    st.session_state.ultima_atualizacao = datetime.now()
+    st.session_state.ultima_atualizacao = agora_brasilia()
 
 if 'pedidos_antigos' not in st.session_state:
     st.session_state.pedidos_antigos = pd.DataFrame()
@@ -575,7 +582,7 @@ with aba_painel:
         
         st.subheader("🕒 Painel de Coletas (Tempo Real)")
         with st.container(border=True):
-            hora_atual = datetime.now().time()
+            hora_atual = agora_brasilia().time()
             
             t_800 = datetime.strptime("08:00", "%H:%M").time()
             t_1030 = datetime.strptime("10:30", "%H:%M").time()
